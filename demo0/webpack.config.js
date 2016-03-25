@@ -40,6 +40,9 @@ module.exports = {
       test: /\.scss$/,
       loaders: ['style', 'css', 'sass'],
       include: SRC_PATH
+    }, {
+      test: /\.(png|jpg)$/,
+      loader: 'url?limit=8192'
     }]
   }
 };
