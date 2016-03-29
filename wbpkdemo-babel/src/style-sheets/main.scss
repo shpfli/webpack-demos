@@ -1,0 +1,15 @@
+@import "./variables.scss";
+div:first-of-type{
+  background-image: url('../imgs/悟.jpg');
+  height: 650px;
+  width: 505px;
+}
+h1 {
+  color: $red;
+}
+h4 {
+  color: $orange;
+}
+body {
+  background-color: $green;
+}
