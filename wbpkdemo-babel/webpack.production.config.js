@@ -4,7 +4,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var ROOT_PATH = path.resolve(__dirname);
 var SRC_PATH = path.resolve(ROOT_PATH, 'src');
-var TEM_PATH = path.resolve(SRC_PATH, 'templates');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 
 module.exports = {
@@ -18,8 +17,7 @@ module.exports = {
   //输出的文件名 合并以后的js会命名为bundle.js
   output: {
     path: BUILD_PATH,
-    //只要再加上hash这个参数就可以了
-    filename: '[name].[hash].js'
+    filename: '[name].js'
   },
   //html-webpack-plugin插件 会自动生成一个html文件
   plugins: [
@@ -29,54 +27,18 @@ module.exports = {
     }),
     //把入口文件里面的数组打包成verdors.js
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-    //创建了两个HtmlWebpackPlugin的实例，生成两个页面
     new HtmlWebpackPlugin({
-      title: 'Hello World app',
-      template: path.resolve(TEM_PATH, 'index.html'),
-      filename: 'index.html',
-      //chunks这个参数告诉插件要引用entry里面的哪几个入口
-      chunks: ['app', 'vendors'],
-      //要把script插入到标签里
-      inject: 'body'
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Hello Mobile app',
-      template: path.resolve(TEM_PATH, 'mobile.html'),
-      filename: 'mobile.html',
-      chunks: ['mobile', 'vendors'],
-      inject: 'body'
+      title: 'Hello World app'
     })
   ],
-
-  //webpack-dev-server 配置
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    progress: true,
-    port: 9999
-  },
-  // 出错以后就会采用source-map的形式直接显示出错代码的位置。
-  devtool: 'eval-source-map',
-
-  //配置jshint的选项，支持es6的校验
-  jshint: {
-    "esnext": true
-  },
-
   module: {
-    preLoaders: [{
-      test: /\.jsx?$/,
-      include: SRC_PATH,
-      loader: "jshint-loader"
-    }],
     loaders: [{
       test: /\.css$/,
       loaders: ['style', 'css'], //注意loaders的处理顺序是从右到左的，这里就是先运行css-loader然后是style-loader
       include: SRC_PATH
     }, {
       test: /\.scss$/,
-      loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+      loaders: ['style', 'css', 'sass'],
       include: SRC_PATH
     }, {
       test: /\.(png|jpg)$/,

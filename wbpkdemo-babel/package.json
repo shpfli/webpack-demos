@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --inline",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress --profile --colors --config webpack.production.config.js",
+    "webpackrun": "webpack --progress --profile --colors"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,9 @@
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.14.0",
+    "imports-loader": "^0.8.0",
+    "jshint": "^2.9.6",
+    "jshint-loader": "^0.8.4",
     "node-sass": "^3.4.2",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
