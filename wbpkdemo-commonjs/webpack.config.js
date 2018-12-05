@@ -33,16 +33,19 @@ module.exports = {
 
   module: {
     loaders: [{
-      test: /\.css$/,
-      loaders: ['style', 'css'], //注意loaders的处理顺序是从右到左的，这里就是先运行css-loader然后是style-loader
-      include: SRC_PATH
-    }, {
-      test: /\.scss$/,
-      loaders: ['style', 'css', 'sass'],
-      include: SRC_PATH
-    }, {
-      test: /\.(png|jpg)$/,
-      loader: 'url?limit=8192'
-    }]
+        test: /\.css$/,
+        //注意loaders的处理顺序是从右到左的，这里就是先运行css-loader然后是style-loader
+        loaders: ['style', 'css'],
+        include: SRC_PATH
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass'],
+        include: SRC_PATH
+      }, {
+        test: /\.(png|jpg)$/,
+        loader: 'url?limit=8192'
+      }
+    ]
   }
 };

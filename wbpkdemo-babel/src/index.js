@@ -5,7 +5,7 @@ import moment from 'moment'
 
 let app = document.createElement('div')
 
-const myPromise = Promise.resolve(42)
+const myPromise = Promise.resolve(99)
 myPromise.then((number) => {
   $('body').append('<div><p>promise result is ' + number + ' now is ' + moment().format() + '</p></div>')
 })
