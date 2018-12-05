@@ -4,6 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var ROOT_PATH = path.resolve(__dirname);
 var SRC_PATH = path.resolve(ROOT_PATH, 'src');
+var TEM_PATH = path.resolve(SRC_PATH, 'templates');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 
 module.exports = {
@@ -17,7 +18,8 @@ module.exports = {
   //输出的文件名 合并以后的js会命名为bundle.js
   output: {
     path: BUILD_PATH,
-    filename: '[name].js'
+    //只要再加上hash这个参数就可以了
+    filename: '[name].[hash].js'
   },
   //html-webpack-plugin插件 会自动生成一个html文件
   plugins: [
@@ -27,8 +29,22 @@ module.exports = {
     }),
     //把入口文件里面的数组打包成verdors.js
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+    //创建了两个HtmlWebpackPlugin的实例，生成两个页面
     new HtmlWebpackPlugin({
-      title: 'Hello World app'
+      title: 'Hello World app',
+      template: path.resolve(TEM_PATH, 'index.html'),
+      filename: 'index.html',
+      //chunks这个参数告诉插件要引用entry里面的哪几个入口
+      chunks: ['app', 'vendors'],
+      //要把script插入到标签里
+      inject: 'body'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello Mobile app',
+      template: path.resolve(TEM_PATH, 'mobile.html'),
+      filename: 'mobile.html',
+      chunks: ['mobile', 'vendors'],
+      inject: 'body'
     })
   ],
   module: {
